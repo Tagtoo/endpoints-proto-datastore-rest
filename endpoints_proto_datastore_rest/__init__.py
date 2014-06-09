@@ -45,50 +45,55 @@ class EndpointRestBuilder(object):
     def set_query_method(self, func, method_name, **kwargs):
         self._methods[method_name] = self.cls.query_method(**kwargs)(func)
 
-    def set_get(self, func):
+    def set_get(self, func, **kwargs):
         self.set_method(
             func,
             "get",
             path="%s/{id}"% self.name,
             http_method="GET",
-            name="%s.get" % self.name
+            name="%s.get" % self.name,
+            **kwargs
         )
 
-    def set_delete(self, func):
+    def set_delete(self, func, **kwargs):
         self.set_method(
             func,
             "delete",
             path="%s/{id}" % self.name,
             http_method="DELETE",
             name="%s.delete" % self.name,
+            **kwargs
         )
 
-    def set_update(self, func):
+    def set_update(self, func, **kwargs):
         self.set_method(
             func,
             "update",
             path="%s/{id}"% self.name,
             http_method="PUT",
-            name="%s.update" % self.name
+            name="%s.update" % self.name,
+            **kwargs
         )
 
-    def set_insert(self, func):
+    def set_insert(self, func, **kwargs):
         self.set_method(
             func,
             "insert",
             path="%s" % self.name,
             http_method="POST",
-            name="%s.insert" % self.name
+            name="%s.insert" % self.name,
+            **kwargs
         )
 
-    def set_list(self, func):
+    def set_list(self, func, **kwargs):
         self.set_query_method(
             func,
             "list",
             path='%s/list' % self.name ,
             http_method='GET',
             name="%s.list" % self.name,
-            query_fields=('limit', 'pageToken')
+            query_fields=('limit', 'pageToken'),
+            **kwargs
         )
 
     def build(self, api_name, **kwargs):
