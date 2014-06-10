@@ -19,7 +19,8 @@ def _default_get(self, model):
     return model
 
 def _default_delete(self, model):
-    return model.key.delete()
+    model.key.delete()
+    return model
 
 def bind(func, name, doc):
     func.__name__ = name
